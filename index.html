@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>John Alan — Graphic Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --cream: #f7f3ee;
+  --dark: #1c1a18;
+  --warm: #2a2420;
+  --accent: #c9622f;
+  --accent2: #e8a87c;
+  --muted: #8a7d74;
+  --border: rgba(28,26,24,0.12);
+  --white: #ffffff;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--dark);font-family:'Outfit',sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:22px 60px;background:rgba(247,243,238,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:padding 0.3s;}
+nav.sm{padding:14px 60px;}
+.logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--dark);text-decoration:none;}
+.logo em{color:var(--accent);font-style:italic;}
+.nav-links{display:flex;gap:40px;list-style:none;align-items:center;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--accent);}
+.hire{background:var(--dark)!important;color:var(--cream)!important;padding:10px 24px;}
+.hire:hover{background:var(--accent)!important;}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;}
+.burger span{display:block;width:22px;height:1.5px;background:var(--dark);}
+
+/* MOBILE MENU */
+.mmenu{display:none;position:fixed;inset:0;background:var(--dark);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:36px;}
+.mmenu.open{display:flex;}
+.mmenu a{font-family:'Playfair Display',serif;font-size:clamp(2rem,8vw,4rem);color:var(--cream);text-decoration:none;}
+.mmenu a:hover{color:var(--accent);}
+.mclose{position:absolute;top:24px;right:28px;background:none;border:none;color:var(--cream);font-size:2rem;cursor:pointer;}
+
+/* HERO */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 60px 80px;gap:60px;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(201,98,47,0.07) 0%,transparent 70%);right:-100px;top:50%;transform:translateY(-50%);pointer-events:none;}
+.hero-left{position:relative;z-index:1;}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--accent);}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(44px,6vw,84px);font-weight:900;line-height:1.0;letter-spacing:-0.02em;margin-bottom:24px;}
+.hero-h1 em{font-style:italic;color:var(--accent);display:block;}
+.hero-sub{font-size:0.98rem;color:var(--muted);line-height:1.85;max-width:400px;margin-bottom:44px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 34px;font-family:'Outfit',sans-serif;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:all 0.3s;border:none;cursor:pointer;}
+.btn-d{background:var(--dark);color:var(--cream);}
+.btn-d:hover{background:var(--accent);transform:translateY(-2px);}
+.btn-o{background:transparent;color:var(--dark);border:1.5px solid var(--dark);}
+.btn-o:hover{background:var(--dark);color:var(--cream);transform:translateY(-2px);}
+.hero-right{position:relative;}
+.photo-wrap{position:relative;display:inline-block;width:100%;}
+.photo-wrap::before{content:'';position:absolute;top:-14px;right:-14px;bottom:14px;left:14px;border:2px solid var(--accent);z-index:0;}
+.hero-img{width:100%;max-height:580px;object-fit:cover;object-position:top;display:block;position:relative;z-index:1;}
+.hero-badge{position:absolute;bottom:-18px;left:-18px;background:var(--accent);color:var(--white);padding:18px 22px;z-index:2;}
+.badge-n{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;line-height:1;display:block;}
+.badge-t{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;}
+
+/* TICKER */
+.ticker{background:var(--dark);color:var(--cream);overflow:hidden;padding:15px 0;white-space:nowrap;}
+.ticker-inner{display:inline-flex;gap:60px;animation:scroll 28s linear infinite;font-family:'Playfair Display',serif;font-size:1rem;font-style:italic;}
+.ticker-inner span{flex-shrink:0;}
+.tdot{color:var(--accent);}
+
+/* ABOUT */
+#about{padding:120px 60px;background:var(--white);}
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:90px;align-items:center;max-width:1200px;margin:0 auto;}
+.sec-eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;}
+.sec-eyebrow::before{content:'';width:28px;height:1px;background:var(--accent);}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,60px);font-weight:900;line-height:1.05;letter-spacing:-0.02em;margin-bottom:28px;}
+.sec-title em{font-style:italic;color:var(--accent);}
+.about-text p{font-size:0.93rem;color:var(--muted);line-height:1.95;margin-bottom:16px;}
+.about-text p:last-child{margin-bottom:0;}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:36px;}
+.stat{background:var(--cream);padding:28px 20px;text-align:center;}
+.stat.inv{background:var(--dark);}
+.stat.inv .sn{color:var(--accent);}
+.stat.inv .sl{color:rgba(247,243,238,0.5);}
+.sn{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;color:var(--dark);line-height:1;display:block;}
+.sl{font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-top:6px;display:block;}
+.skills{display:flex;flex-direction:column;gap:12px;}
+.skill{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.skn{font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;}
+.skbar{width:110px;height:2px;background:var(--border);position:relative;overflow:hidden;}
+.skfill{position:absolute;top:0;left:0;height:100%;background:var(--accent);width:0;transition:width 1.6s ease;}
+.skbar.active .skfill{width:var(--w);}
+
+/* PORTFOLIO */
+#portfolio{padding:120px 60px;background:var(--cream);}
+.port-top{display:flex;justify-content:space-between;align-items:flex-end;max-width:1200px;margin:0 auto 48px;}
+.port-big{font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;color:rgba(28,26,24,0.05);line-height:1;}
+.filters{display:flex;gap:8px;flex-wrap:wrap;max-width:1200px;margin:0 auto 40px;}
+.fb{padding:8px 18px;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;background:transparent;color:var(--muted);border:1px solid var(--border);cursor:pointer;transition:all 0.3s;font-family:'Outfit',sans-serif;}
+.fb:hover,.fb.on{background:var(--dark);color:var(--cream);border-color:var(--dark);}
+
+/* MASONRY */
+.pgrid{columns:3;column-gap:16px;max-width:1200px;margin:0 auto;}
+.pcard{break-inside:avoid;margin-bottom:16px;position:relative;overflow:hidden;cursor:pointer;display:block;line-height:0;}
+.pcard img{width:100%;height:auto;display:block;transition:transform 0.5s ease,filter 0.4s ease;}
+.pcard:hover img{transform:scale(1.05);filter:brightness(0.55);}
+.pcard-over{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(to top,rgba(20,18,16,0.95) 0%,transparent 100%);transform:translateY(100%);transition:transform 0.4s ease;}
+.pcard:hover .pcard-over{transform:translateY(0);}
+.pcard-cat{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent2);margin-bottom:4px;line-height:1.4;}
+.pcard-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--white);line-height:1.2;margin-bottom:6px;}
+.pcard-cta{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent2);line-height:1.4;}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(20,18,16,0.97);z-index:500;display:flex;align-items:flex-start;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.4s;overflow-y:auto;padding:60px 20px 40px;}
+.modal-bg.on{opacity:1;pointer-events:all;}
+.mbox{background:var(--white);max-width:700px;width:100%;transform:scale(0.94);transition:transform 0.4s;margin:auto;}
+.modal-bg.on .mbox{transform:scale(1);}
+.mbox-img{width:100%;height:auto;display:block;object-fit:contain;}
+.mbox-body{padding:28px 32px 36px;}
+.mcat{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.mtitle{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;line-height:1.1;margin-bottom:12px;}
+.mdesc{color:var(--muted);font-size:0.88rem;line-height:1.85;}
+.mclose-btn{position:fixed;top:16px;right:16px;background:var(--white);border:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;cursor:pointer;z-index:501;transition:background 0.3s;}
+.mclose-btn:hover{background:var(--accent);color:var(--white);}
+
+/* SERVICES */
+#services{padding:120px 60px;background:var(--dark);color:var(--cream);}
+.svc-inner{max-width:1200px;margin:0 auto;}
+.svc-inner .sec-eyebrow{color:var(--accent2);}
+.svc-inner .sec-eyebrow::before{background:var(--accent2);}
+.svc-inner .sec-title{color:var(--cream);}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:56px;}
+.scard{background:var(--warm);padding:44px 36px;position:relative;overflow:hidden;transition:background 0.3s;}
+.scard::after{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--accent);transition:height 0.4s;}
+.scard:hover::after{height:100%;}
+.scard:hover{background:rgba(201,98,47,0.08);}
+.snum{font-family:'Playfair Display',serif;font-size:0.82rem;color:var(--accent);opacity:0.5;margin-bottom:18px;display:block;}
+.stitle{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:14px;transition:color 0.3s;}
+.scard:hover .stitle{color:var(--accent2);}
+.sdesc{font-size:0.83rem;color:rgba(247,243,238,0.45);line-height:1.85;}
+
+/* CONTACT */
+#contact{padding:120px 60px;background:var(--cream);}
+.contact-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:90px;}
+.cleft .sec-title{margin-bottom:20px;}
+.ctag{font-size:0.93rem;color:var(--muted);line-height:1.85;margin-bottom:36px;}
+.clabel{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;display:block;}
+.clink{font-size:0.93rem;color:var(--dark);text-decoration:none;transition:color 0.3s;}
+.clink:hover{color:var(--accent);}
+.socrow{display:flex;gap:10px;margin-top:36px;}
+.soc{width:40px;height:40px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-size:0.72rem;font-weight:500;transition:all 0.3s;}
+.soc:hover{border-color:var(--accent);color:var(--accent);}
+.cform{display:flex;flex-direction:column;gap:18px;}
+.fgroup{position:relative;}
+.finput,.ftarea{width:100%;background:var(--white);border:1.5px solid var(--border);color:var(--dark);padding:20px;font-family:'Outfit',sans-serif;font-size:0.88rem;font-weight:300;outline:none;resize:none;transition:border-color 0.3s;}
+.finput:focus,.ftarea:focus{border-color:var(--accent);}
+.ftarea{min-height:148px;}
+.flabel{position:absolute;top:20px;left:20px;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);pointer-events:none;transition:all 0.3s;}
+.finput:focus~.flabel,.finput:not(:placeholder-shown)~.flabel,.ftarea:focus~.flabel,.ftarea:not(:placeholder-shown)~.flabel{top:-10px;left:12px;font-size:0.58rem;background:var(--cream);padding:0 8px;color:var(--accent);}
+.fsend{align-self:flex-start;background:var(--dark);color:var(--cream);border:none;padding:17px 44px;font-family:'Outfit',sans-serif;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:all 0.3s;}
+.fsend:hover{background:var(--accent);transform:translateY(-2px);}
+
+/* FOOTER */
+footer{background:var(--dark);padding:36px 60px;display:flex;justify-content:space-between;align-items:center;}
+.flogo{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--cream);}
+.flogo em{color:var(--accent);font-style:italic;}
+.fcopy{font-size:0.72rem;color:rgba(247,243,238,0.3);}
+
+/* ANIMATIONS */
+@keyframes up{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  nav,nav.sm{padding:18px 32px;}
+  .nav-links{display:none;}
+  .burger{display:flex;}
+  #hero{grid-template-columns:1fr;padding:100px 32px 60px;}
+  .hero-right{max-width:380px;}
+  .hero-glow{display:none;}
+  #about{padding:80px 32px;}
+  .about-grid{grid-template-columns:1fr;gap:50px;}
+  #portfolio{padding:80px 32px;}
+  .pgrid{columns:2;}
+  .port-top{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:32px;}
+  #services{padding:80px 32px;}
+  .svc-grid{grid-template-columns:1fr;}
+  #contact{padding:80px 32px;}
+  .contact-grid{grid-template-columns:1fr;gap:50px;}
+  footer{padding:28px 32px;flex-direction:column;gap:12px;text-align:center;}
+}
+@media(max-width:600px){
+  nav,nav.sm{padding:16px 20px;}
+  #hero{padding:88px 20px 50px;}
+  .photo-wrap::before{display:none;}
+  #about,#portfolio,#services,#contact{padding:60px 20px;}
+  .pgrid{columns:1;}
+  footer{padding:24px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mmenu" id="mmenu">
+  <button class="mclose" onclick="closeMM()">✕</button>
+  <a href="#about" onclick="closeMM()">About</a>
+  <a href="#portfolio" onclick="closeMM()">Work</a>
+  <a href="#services" onclick="closeMM()">Services</a>
+  <a href="#contact" onclick="closeMM()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">John <em>Alan</em></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact" class="hire">Hire Me</a></li>
+  </ul>
+  <button class="burger" onclick="openMM()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-left">
+    <p class="eyebrow">Graphic Designer</p>
+    <h1 class="hero-h1">Creative<br><em>By Design.</em></h1>
+    <p class="hero-sub">Strategic, modern design that builds strong visual identities and leaves lasting impressions. Every detail crafted with purpose.</p>
+    <div class="hero-btns">
+      <a href="#portfolio" class="btn btn-d">View My Work →</a>
+      <a href="#contact" class="btn btn-o">Let's Talk</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="photo-wrap">
+      <img src="7497.png" alt="John Alan" class="hero-img"/>
+      <div class="hero-badge">
+        <span class="badge-n">35+</span>
+        <span class="badge-t">Projects Done</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>Brand Identity</span><span class="tdot"> · </span><span>Logo Design</span><span class="tdot"> · </span><span>Packaging</span><span class="tdot"> · </span><span>Social Media</span><span class="tdot"> · </span><span>Print Design</span><span class="tdot"> · </span><span>Web Visuals</span><span class="tdot"> · </span><span>Brand Identity</span><span class="tdot"> · </span><span>Logo Design</span><span class="tdot"> · </span><span>Packaging</span><span class="tdot"> · </span><span>Social Media</span><span class="tdot"> · </span><span>Print Design</span><span class="tdot"> · </span><span>Web Visuals</span><span class="tdot"> · </span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <p class="sec-eyebrow">About Me</p>
+      <h2 class="sec-title">Design with<br><em>Intent & Soul</em></h2>
+      <div class="about-text">
+        <p>My name is John Alan, a creative and detail-driven Graphic Designer passionate about building strong visual identities that leave lasting impressions. I specialize in logo design, brand identity, and modern web visuals, helping businesses communicate clearly and confidently through design.</p>
+        <p>I believe great design is not just about aesthetics — it is about strategy, clarity, and impact. Every project begins with understanding the brand's vision, audience, and goals. From there, I craft visuals that are clean, purposeful, and aligned with long-term growth.</p>
+        <p>My approach combines creativity with structure. I focus on strong typography, balanced layouts, and thoughtful color systems to create designs that feel modern and professional. Whether developing a brand from scratch or refining an existing identity, I ensure every detail contributes to a cohesive visual story.</p>
+        <p>I am committed to delivering high-quality work, maintaining clear communication, and meeting deadlines consistently. My goal: to transform ideas into compelling visual experiences that elevate brands and build trust.</p>
+      </div>
+    </div>
+    <div>
+      <div class="stats">
+        <div class="stat inv"><span class="sn">35+</span><span class="sl">Projects</span></div>
+        <div class="stat"><span class="sn">3+</span><span class="sl">Years Exp.</span></div>
+        <div class="stat"><span class="sn">100%</span><span class="sl">Dedicated</span></div>
+        <div class="stat inv"><span class="sn">∞</span><span class="sl">Creative</span></div>
+      </div>
+      <div class="skills">
+        <div class="skill"><span class="skn">Adobe Illustrator</span><div class="skbar" style="--w:95%"><div class="skfill"></div></div></div>
+        <div class="skill"><span class="skn">Photoshop</span><div class="skbar" style="--w:90%"><div class="skfill"></div></div></div>
+        <div class="skill"><span class="skn">Figma</span><div class="skbar" style="--w:85%"><div class="skfill"></div></div></div>
+        <div class="skill"><span class="skn">Branding</span><div class="skbar" style="--w:95%"><div class="skfill"></div></div></div>
+        <div class="skill"><span class="skn">UI / UX</span><div class="skbar" style="--w:80%"><div class="skfill"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="port-top">
+    <div>
+      <p class="sec-eyebrow">My Work</p>
+      <h2 class="sec-title">Selected <em>Projects</em></h2>
+    </div>
+    <div class="port-big">35</div>
+  </div>
+  <div class="filters">
+    <button class="fb on" data-f="all">All Work</button>
+    <button class="fb" data-f="brand">Brand Identity</button>
+    <button class="fb" data-f="social">Social Media</button>
+    <button class="fb" data-f="packaging">Packaging</button>
+    <button class="fb" data-f="print">Print</button>
+    <button class="fb" data-f="logo">Logo</button>
+  </div>
+  <div class="pgrid">
+    <div class="pcard" data-f="social" onclick="openModal(0)"><img src="7880.jpg" alt="Its Basic"/><div class="pcard-over"><p class="pcard-cat">Social Media · Fashion</p><h3 class="pcard-name">It's Basic Fashion Campaign</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="social" onclick="openModal(1)"><img src="7881.jpg" alt="Fashion Sale"/><div class="pcard-over"><p class="pcard-cat">Social Media · Fashion</p><h3 class="pcard-name">Fashion Sale Poster</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="social" onclick="openModal(2)"><img src="7883.jpg" alt="Valion Wears"/><div class="pcard-over"><p class="pcard-cat">Social Media · Retail</p><h3 class="pcard-name">Valion Wears Flyer</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="social" onclick="openModal(3)"><img src="7865.jpg" alt="GSG Graphix"/><div class="pcard-over"><p class="pcard-cat">Social Media · Creative</p><h3 class="pcard-name">GSG Graphix Tuesday Post</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="print" onclick="openModal(4)"><img src="7882.jpg" alt="Fashion Week"/><div class="pcard-over"><p class="pcard-cat">Print · Fashion</p><h3 class="pcard-name">Fashion Week 2K25 Poster</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="social" onclick="openModal(5)"><img src="7870.jpg" alt="Azza Grid"/><div class="pcard-over"><p class="pcard-cat">Social Media · Marketing</p><h3 class="pcard-name">Azza Social Media Grid</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="social" onclick="openModal(6)"><img src="7869.jpg" alt="Loomie"/><div class="pcard-over"><p class="pcard-cat">Social Media · E-Commerce</p><h3 class="pcard-name">Loomie Fashion Product Ad</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="print" onclick="openModal(7)"><img src="7866.jpg" alt="MC Livinho"/><div class="pcard-over"><p class="pcard-cat">Print · Music Event</p><h3 class="pcard-name">MC Livinho Event Poster</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="social" onclick="openModal(8)"><img src="7871.jpg" alt="Flow"/><div class="pcard-over"><p class="pcard-cat">Social Media · Fintech</p><h3 class="pcard-name">Flow — Money in Motion</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="social" onclick="openModal(9)"><img src="7864.jpg" alt="Burger"/><div class="pcard-over"><p class="pcard-cat">Social Media · Food</p><h3 class="pcard-name">Burger Restaurant Ad</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="brand" onclick="openModal(10)"><img src="7849.jpg" alt="Stories"/><div class="pcard-over"><p class="pcard-cat">Brand Identity · Café</p><h3 class="pcard-name">Stories Brand Style Guide</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="brand" onclick="openModal(11)"><img src="7851.jpg" alt="Crawford"/><div class="pcard-over"><p class="pcard-cat">Brand Identity · Agency</p><h3 class="pcard-name">Crawford Creative Style Guide</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="brand" onclick="openModal(12)"><img src="7829.jpg" alt="Ursule"/><div class="pcard-over"><p class="pcard-cat">Brand Identity · Construction</p><h3 class="pcard-name">Ursule Brand Identity</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="brand" onclick="openModal(13)"><img src="7832.jpg" alt="Tresta"/><div class="pcard-over"><p class="pcard-cat">Brand Identity · Environmental</p><h3 class="pcard-name">Tresta Brand System</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="brand" onclick="openModal(14)"><img src="7834.jpg" alt="W3 Hub"/><div class="pcard-over"><p class="pcard-cat">Brand Identity · Tech</p><h3 class="pcard-name">W3 Hub Brand Guidelines</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="print" onclick="openModal(15)"><img src="7845.jpg" alt="Wildlife"/><div class="pcard-over"><p class="pcard-cat">Print · Non-Profit</p><h3 class="pcard-name">Wildlife Brigade Brochure</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="print" onclick="openModal(16)"><img src="7868.jpg" alt="Dance"/><div class="pcard-over"><p class="pcard-cat">Print · Entertainment</p><h3 class="pcard-name">Dance Studio Brochure</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="print" onclick="openModal(17)"><img src="7830.jpg" alt="Corporate"/><div class="pcard-over"><p class="pcard-cat">Print · Corporate</p><h3 class="pcard-name">Corporate Brochure Design</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="packaging" onclick="openModal(18)"><img src="7846.jpg" alt="The Goods"/><div class="pcard-over"><p class="pcard-cat">Packaging · Food</p><h3 class="pcard-name">The Goods Product Packaging</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="print" onclick="openModal(19)"><img src="7831.jpg" alt="Hotel"/><div class="pcard-over"><p class="pcard-cat">Print · Hospitality</p><h3 class="pcard-name">Luxury Hotel Brochure</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="packaging" onclick="openModal(20)"><img src="7833.jpg" alt="Chimera"/><div class="pcard-over"><p class="pcard-cat">Packaging · Food</p><h3 class="pcard-name">Chimera Olive Oil Brand</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="packaging" onclick="openModal(21)"><img src="7847.jpg" alt="Frank Chocolate"/><div class="pcard-over"><p class="pcard-cat">Packaging · Confectionery</p><h3 class="pcard-name">Frank Chocolate Packaging</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="packaging" onclick="openModal(22)"><img src="7837.jpg" alt="Bacha Coffee"/><div class="pcard-over"><p class="pcard-cat">Packaging · Beverage</p><h3 class="pcard-name">Bacha Coffee Tin and Box</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="packaging" onclick="openModal(23)"><img src="7836.jpg" alt="Schepps"/><div class="pcard-over"><p class="pcard-cat">Packaging · Beverage</p><h3 class="pcard-name">Schepps Superior Milk Bottle</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="packaging" onclick="openModal(24)"><img src="7835.jpg" alt="Happ Stahns"/><div class="pcard-over"><p class="pcard-cat">Packaging · Beauty</p><h3 class="pcard-name">Happ and Stahns Hand Cream</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="logo" onclick="openModal(25)"><img src="7848.jpg" alt="Dancing Crane"/><div class="pcard-over"><p class="pcard-cat">Logo Design · Healthcare</p><h3 class="pcard-name">Dancing Crane Chiropractors</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="social" onclick="openModal(26)"><img src="7844.jpg" alt="Matue"/><div class="pcard-over"><p class="pcard-cat">Social Media · Music</p><h3 class="pcard-name">Matue Artist Visual</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="social" onclick="openModal(27)"><img src="7867.jpg" alt="Gabriel Santos"/><div class="pcard-over"><p class="pcard-cat">Social Media · Music Event</p><h3 class="pcard-name">Gabriel Santos Shows</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="packaging" onclick="openModal(28)"><img src="7842.jpg" alt="Rimu Health"/><div class="pcard-over"><p class="pcard-cat">Packaging · Beauty</p><h3 class="pcard-name">Rimu Health Brightening Serum</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="packaging" onclick="openModal(29)"><img src="7843.jpg" alt="BigBox"/><div class="pcard-over"><p class="pcard-cat">Packaging · Retail</p><h3 class="pcard-name">BigBox Packaging System</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="brand" onclick="openModal(30)"><img src="7841.jpg" alt="Brokian"/><div class="pcard-over"><p class="pcard-cat">Brand Identity · Business</p><h3 class="pcard-name">Brokian Brand Identity</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="logo" onclick="openModal(31)"><img src="7840.jpg" alt="Newslyst"/><div class="pcard-over"><p class="pcard-cat">Logo Design · Tech</p><h3 class="pcard-name">Newslyst Logo Design</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="brand" onclick="openModal(32)"><img src="7839.jpg" alt="Laber"/><div class="pcard-over"><p class="pcard-cat">Brand Identity · Tech</p><h3 class="pcard-name">Laber AI Neurotech Brand</h3><p class="pcard-cta">View →</p></div></div>
+    <div class="pcard" data-f="brand" onclick="openModal(33)"><img src="7838.jpg" alt="Singapore"/><div class="pcard-over"><p class="pcard-cat">Brand Identity · Finance</p><h3 class="pcard-name">Singapore Green Finance Centre</h3><p class="pcard-cta">View →</p></div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="svc-inner">
+    <p class="sec-eyebrow">What I Offer</p>
+    <h2 class="sec-title">My <em>Services</em></h2>
+    <div class="svc-grid">
+      <div class="scard"><span class="snum">01</span><h3 class="stitle">Logo Design</h3><p class="sdesc">Original, memorable logos crafted from scratch. No templates. Every mark built to represent your brand with clarity, confidence, and longevity.</p></div>
+      <div class="scard"><span class="snum">02</span><h3 class="stitle">Brand Identity</h3><p class="sdesc">Full visual identity systems including logos, color palettes, typography, guidelines and everything your brand needs to stay consistent and recognizable.</p></div>
+      <div class="scard"><span class="snum">03</span><h3 class="stitle">Web Design</h3><p class="sdesc">Clean, modern web visuals and UI layouts that translate your brand into engaging digital experiences optimized for all devices.</p></div>
+      <div class="scard"><span class="snum">04</span><h3 class="stitle">Social Media Graphics</h3><p class="sdesc">Eye-catching posts, stories, banners, and promotional graphics that stop the scroll and communicate your message with impact across all platforms.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="cleft">
+      <p class="sec-eyebrow">Get in Touch</p>
+      <h2 class="sec-title">Let's Build<br>Something <em>Great</em></h2>
+      <p class="ctag">Ready to take your brand to the next level? I am available for freelance projects and collaborations. Let us create something remarkable together.</p>
+      <span class="clabel">Email</span>
+      <a href="mailto:alandesigner40@gmail.com" class="clink">alandesigner40@gmail.com</a>
+      <div class="socrow">
+        <a href="#" class="soc">IG</a>
+        <a href="#" class="soc">BE</a>
+        <a href="#" class="soc">DR</a>
+        <a href="#" class="soc">LI</a>
+      </div>
+    </div>
+    <form class="cform" onsubmit="sendMsg(event)">
+      <div class="fgroup"><input type="text" class="finput" id="fn" placeholder=" " required/><label class="flabel" for="fn">Your Name</label></div>
+      <div class="fgroup"><input type="email" class="finput" id="fe" placeholder=" " required/><label class="flabel" for="fe">Your Email</label></div>
+      <div class="fgroup"><textarea class="ftarea" id="fm" placeholder=" " required></textarea><label class="flabel" for="fm">Your Message</label></div>
+      <button type="submit" class="fsend">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="flogo">John <em>Alan</em></div>
+  <p class="fcopy">© 2025 John Alan. All rights reserved.</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-bg" id="mbg" onclick="closeOut(event)">
+  <button class="mclose-btn" onclick="closeModal()">✕</button>
+  <div class="mbox">
+    <img id="mimg" src="" alt="" class="mbox-img"/>
+    <div class="mbox-body">
+      <p class="mcat" id="mcat"></p>
+      <h3 class="mtitle" id="mtitle"></h3>
+      <p class="mdesc" id="mdesc"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{ document.getElementById('nav').classList.toggle('sm',window.scrollY>50); });
+function openMM(){document.getElementById('mmenu').classList.add('open');}
+function closeMM(){document.getElementById('mmenu').classList.remove('open');}
+
+// Skill bars
+const skObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('active');});},{threshold:0.5});
+document.querySelectorAll('.skbar').forEach(el=>skObs.observe(el));
+
+// Filter
+document.querySelectorAll('.fb').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    const f=btn.dataset.f;
+    document.querySelectorAll('.pcard').forEach(c=>{c.style.display=(f==='all'||c.dataset.f===f)?'block':'none';});
+  });
+});
+
+// Modal data
+const P=[
+  {img:'7880.jpg',cat:'Social Media · Fashion',title:"It's Basic Fashion Campaign",desc:'Bold fashion social media campaign featuring multi-angle product compositions with strong typographic treatment on a clean neutral background.'},
+  {img:'7881.jpg',cat:'Social Media · Fashion',title:'Fashion Sale Poster',desc:'Elegant fashion sale promotional poster with warm neutral tones, editorial photography layout, and refined typography.'},
+  {img:'7883.jpg',cat:'Social Media · Retail',title:'Valion Wears Flyer',desc:'Product showcase flyer for a clothing brand featuring quality apparel photography with bold headline typography and service highlights.'},
+  {img:'7865.jpg',cat:'Social Media · Creative',title:'GSG Graphix Tuesday Post',desc:'Creative self-promotional social media post with illustrated character, context menu UI motif, and warm golden color palette.'},
+  {img:'7882.jpg',cat:'Print · Fashion',title:'Fashion Week 2K25 Poster',desc:'Sophisticated fashion week event poster with split editorial photography, structured typography grid, and muted warm palette.'},
+  {img:'7870.jpg',cat:'Social Media · Marketing',title:'Azza Social Media Grid',desc:'High-impact social media content grid for a digital marketing agency. Bold purple and dark palette with 3D assets and dramatic typographic compositions.'},
+  {img:'7869.jpg',cat:'Social Media · E-Commerce',title:'Loomie Fashion Product Ad',desc:'Clean product advertisement featuring multi-view jacket showcase with structured layout and earthy green tones.'},
+  {img:'7866.jpg',cat:'Print · Music Event',title:'MC Livinho Event Poster',desc:'Dynamic music event poster using layered portrait photography, bold display type, and vivid blue gradient treatment.'},
+  {img:'7871.jpg',cat:'Social Media · Fintech',title:'Flow — Money in Motion',desc:'Modern fintech brand advertisement combining lifestyle photography with bold headline typography on a vibrant blue background.'},
+  {img:'7864.jpg',cat:'Social Media · Food',title:'Burger Restaurant Ad',desc:'High-energy food promotional ad with dramatic burger photography, textured display typography, and bold dark-to-green gradient.'},
+  {img:'7849.jpg',cat:'Brand Identity · Cafe',title:'Stories Brand Style Guide',desc:'Complete brand identity system for Stories Coffee Juice cafe including logo variations, color palette, spacing guidelines, and typography hierarchy.'},
+  {img:'7851.jpg',cat:'Brand Identity · Agency',title:'Crawford Creative Style Guide',desc:'Brand style guide featuring color palette swatches, typography specimens, and logo application across light and dark backgrounds.'},
+  {img:'7829.jpg',cat:'Brand Identity · Construction',title:'Ursule Brand Identity',desc:'Striking construction brand identity with bold red and dark color system. Geometric logo mark applied across uniforms, hard hats, and cards.'},
+  {img:'7832.jpg',cat:'Brand Identity · Environmental',title:'Tresta Brand System',desc:'Vibrant environmental education brand system featuring a bold green palette, nature-inspired logo mark, and multi-collateral applications.'},
+  {img:'7834.jpg',cat:'Brand Identity · Tech',title:'W3 Hub Brand Guidelines',desc:'Comprehensive brand identity guidelines covering logo clear space, lockup variations, color palette, and digital product applications.'},
+  {img:'7845.jpg',cat:'Print · Non-Profit',title:'Wildlife Brigade Brochure',desc:'Conservation-focused brochure with full-bleed nature photography, bold typographic hierarchy, and circular logo mark.'},
+  {img:'7868.jpg',cat:'Print · Entertainment',title:'Dance Studio Tri-Fold Brochure',desc:'Clean, high-energy tri-fold brochure featuring dynamic photography, class rates, team bios, and circular cropped image layouts.'},
+  {img:'7830.jpg',cat:'Print · Corporate',title:'Corporate Brochure Design',desc:'Professional corporate brochure with creative die-cut cover and bold blue brand color system with photography-forward interior spreads.'},
+  {img:'7846.jpg',cat:'Packaging · Food',title:'The Goods Product Packaging',desc:'Colorful, ingredient-focused packaging for The Goods smoothies and soups. Striped label system using organic tones matched to each product.'},
+  {img:'7831.jpg',cat:'Print · Hospitality',title:'Luxury Hotel Brochure',desc:'Premium resort brochure with painterly ink-splash motif and curated photography grid conveying luxury accommodation and adventure.'},
+  {img:'7833.jpg',cat:'Packaging · Food',title:'Chimera Olive Oil Brand',desc:'Artisan olive oil brand identity and packaging featuring engraved mythical creature illustration across bottles, tins, totes, and gift boxes.'},
+  {img:'7847.jpg',cat:'Packaging · Confectionery',title:'Frank Chocolate Packaging',desc:'Soft, organic packaging with hand-drawn botanical illustrations on earthy kraft tones and elegant script typography.'},
+  {img:'7837.jpg',cat:'Packaging · Beverage',title:'Bacha Coffee Tin and Box',desc:'Heritage coffee brand packaging combining ornate Victorian-inspired pattern on signature pink tin and coordinated retail box.'},
+  {img:'7836.jpg',cat:'Packaging · Beverage',title:'Schepps Superior Milk Bottle',desc:'Luxury milk bottle redesign with dramatic black and white split design, etched crown logo, and elegant script wordmark.'},
+  {img:'7835.jpg',cat:'Packaging · Beauty',title:'Happ and Stahns Hand Cream',desc:'Delicate beauty packaging with soft watercolor botanical illustration on blush pink tones for a hand cream and coordinated gift box.'},
+  {img:'7848.jpg',cat:'Logo Design · Healthcare',title:'Dancing Crane Chiropractors',desc:'Elegant flowing logo combining a fluid crane bird illustration with sophisticated script and serif typography pairing.'},
+  {img:'7844.jpg',cat:'Social Media · Music',title:'Matue Artist Visual',desc:'Bold layered artist visual combining dramatic scaled portraiture, street-inspired typography, and devil-horn cap graphic elements.'},
+  {img:'7867.jpg',cat:'Social Media · Music Event',title:'Gabriel Santos Shows',desc:'High-energy concert promotion post featuring neon magenta lighting effects, bold date listings, and dramatic atmospheric photography.'},
+  {img:'7842.jpg',cat:'Packaging · Beauty',title:'Rimu Health Brightening Serum',desc:'Premium skincare product photography and packaging for Rimu Health serum in minimal clean composition against blue sky.'},
+  {img:'7843.jpg',cat:'Packaging · Retail',title:'BigBox Packaging System',desc:'Bold product packaging identity in vibrant orange with clean typographic branding shown across multiple mockup angles.'},
+  {img:'7841.jpg',cat:'Brand Identity · Business',title:'Brokian Brand Identity',desc:'Modern geometric brand identity featuring abstract multi-colored mark on dark luxury business cards. Vivid and unmistakably contemporary.'},
+  {img:'7840.jpg',cat:'Logo Design · Tech',title:'Newslyst Logo Design',desc:'Clever dual-meaning logo merging an N letterform with a signal broadcast arc in confident electric blue across light and dark applications.'},
+  {img:'7839.jpg',cat:'Brand Identity · Tech',title:'Laber AI Neurotech Brand',desc:'Comprehensive brand system with bold neon green identity, scientific 3D imagery, and dynamic editorial content layouts.'},
+  {img:'7838.jpg',cat:'Brand Identity · Finance',title:'Singapore Green Finance Centre',desc:'Prestigious brand identity with intricate embossed geometric logo on deep forest green premium paper, applied across print and digital.'},
+];
+
+function openModal(i){
+  const p=P[i];
+  document.getElementById('mimg').src=p.img;
+  document.getElementById('mimg').alt=p.title;
+  document.getElementById('mcat').textContent=p.cat;
+  document.getElementById('mtitle').textContent=p.title;
+  document.getElementById('mdesc').textContent=p.desc;
+  document.getElementById('mbg').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('mbg').classList.remove('on');
+  document.body.style.overflow='';
+}
+function closeOut(e){if(e.target===document.getElementById('mbg'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+function sendMsg(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.fsend');
+  btn.textContent='Message Sent!';
+  btn.style.background='var(--accent)';
+  setTimeout(()=>{btn.textContent='Send Message →';btn.style.background='';e.target.reset();},3000);
+}
+</script>
+</body>
+</html>
